@@ -47,7 +47,55 @@ The method calls the findAll() method of a ServerRepository object to retrieve a
 If its Empty it will return `404 NOT FOUND`, and if size of List is greater than 0 it will return all list with  `200 status code`.
 
 
-<img src="/ScreenShots/get.jpg" alt="GET"/>
+<img src="/ScreenShots/get.jpg" alt="GETallItems"/>
 
 ### GET /{ID}
+Returns a single item with the specified ID
 
+```java
+@GetMapping("/{id}")
+    public ResponseEntity<?> getbyID(@PathVariable("id") String id){
+        Optional<Server> optionalSever = ServerRepository.findById(id);
+        if(optionalSever.isPresent()){
+            return  new ResponseEntity<>(optionalSever.get(),HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("404",HttpStatus.NOT_FOUND);
+        }
+    }
+```
+
+It is a controller method that handles HTTP GET requests for a specific server endpoint with an ID parameter ("/{id}").
+
+The method takes in the ID parameter as a @PathVariable annotation and stores it as a string variable called id. It then calls the findById() method of a ServerRepository object to retrieve a server object with the specified ID from a database.
+
+The findById() method returns an Optional object, which is a container object that may or may not contain a non-null value. The method checks if the optionalSever object contains a server object by calling the isPresent() method.
+
+If the optionalSever object contains a server object it return that item from database with `200 ok status` and if not then `404 NOT FOUND`
+
+<img src="/ScreenShots/getbyID.jpg" alt="GETbyID"/>
+
+### GET name/{name}
+Returns a list of items with the specified name
+
+```java
+@GetMapping("/name/{name}")
+    public ResponseEntity<?> getbyName(@PathVariable("name") String name){
+        List<Server> s = ServerRepository.findByName(name);
+        if(s.size() > 0){
+            return new ResponseEntity<>(s,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("404",HttpStatus.NOT_FOUND);
+        }
+
+    }
+```
+
+It is a controller method that handles HTTP GET requests for a specific server endpoint with a name parameter ("/name/{name}").
+
+The method takes in the name parameter as a @PathVariable annotation and stores it as a string variable called name. It then calls the findByName() method of a ServerRepository object to retrieve all server objects with the specified name from a database.
+
+The findByName() method returns a list of server objects that match the specified name. The method checks if the list `s` is not empty by calling the size() method.
+
+If its empty it shows `404 NOT FOUND`, if found then it shows all items with specified name.
+
+<img src="/ScreenShots/getbyname.jpg" alt="GETbyName"/>
