@@ -31,5 +31,5 @@ Now you can access the API endpoints using a tool like cURL, Postman or a web br
 ### GET /
 Returns a list of all items in the database.
 
-<img src="/ScreenShots/get.jpg" alt="MarineGEO circle logo" style="height: 100px; width:100px;"/>
+<img src="/ScreenShots/get.jpg" alt="GET"/>
 
