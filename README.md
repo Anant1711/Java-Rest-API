@@ -30,6 +30,24 @@ Now you can access the API endpoints using a tool like cURL, Postman or a web br
 ## API Documentation
 ### GET /
 Returns a list of all items in the database.
+```java
+    @GetMapping("/")
+    public ResponseEntity<?> getAll(){
+        List<Server> Allserver = ServerRepository.findAll();
+        if(Allserver.size() > 0){
+            return new ResponseEntity<List<Server>>(Allserver, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("404",HttpStatus.NOT_FOUND);
+        }
+    }
+
+```
+The method calls the findAll() method of a ServerRepository object to retrieve all server objects from a database. It then checks if the list of servers is not empty by calling the size() method.
+
+If its Empty it will return `404 NOT FOUND`, and if size of List is greater than 0 it will return all list with  `200 status code`.
+
 
 <img src="/ScreenShots/get.jpg" alt="GET"/>
+
+### GET /{ID}
 
