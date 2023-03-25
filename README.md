@@ -99,3 +99,51 @@ The findByName() method returns a list of server objects that match the specifie
 If its empty it shows `404 NOT FOUND`, if found then it shows all items with specified name.
 
 <img src="/ScreenShots/getbyname.jpg" alt="GETbyName"/>
+
+### POST /
+Creates a new Server detail with the provided data
+
+```java
+@PostMapping("/")
+    public ResponseEntity<?> createServer(@RequestBody Server server){
+        try{
+            ServerRepository.save(server);
+            return new ResponseEntity<Server>(server,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+```
+
+It is a controller method that handles HTTP `POST` requests for the root endpoint ("/") with a request body of a Server object.
+
+The method takes in a Server object as a `@RequestBody` annotation and stores it as a variable called server. It then calls the `save()` method of a `ServerRepository` object to save the server object to a database.
+
+If the `save()` method is successful, the method returns a ResponseEntity object with the server object and an HTTP status code of `HttpStatus.OK` (200). This means that the request was successful and the new server object has been created and saved to the database. And if any error occur it return `HttpStatus.INTERNAL_SERVER_ERROR` (500)
+
+<img src="/ScreenShots/post.jpg" alt="GETbyName"/>
+
+### DELETE /{ID}
+Deletes the item with the specified ID
+
+```java
+@DeleteMapping("/{id}")
+    public  ResponseEntity<?> deletebyID(@PathVariable("id") String id){
+        Optional<Server> optionalSeverfordelete = ServerRepository.findById(id);
+        if(optionalSeverfordelete.isPresent()){
+            ServerRepository.deleteById(id);
+            return  new ResponseEntity<>("Deleted", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("404",HttpStatus.NOT_FOUND);
+        }
+    }
+```
+
+It is a controller method that handles HTTP `DELETE` requests for a specific server endpoint with an ID parameter ("/{id}").
+
+The method takes in the ID parameter as a `@PathVariable` annotation and stores it as a string variable called id. It then calls the `findById()` method of a `ServerRepository` object to check if a server object with the specified ID exists in the database.
+
+The `findById()` method returns an Optional object that either contains the server object with the specified ID or an empty object if it doesn't exist. The method checks if the Optional object contains a server object by calling the isPresent() method. If its present it will delete that item by `deleteById()` method and return `HTTP OK status (200)` otherwise `HTTP NOT FOUND (404)`
+
+
+<img src="/ScreenShots/Delete.jpg" alt="GETbyName"/>
