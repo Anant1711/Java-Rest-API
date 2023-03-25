@@ -8,7 +8,7 @@ To run this application, you will need:
 
 ## Installation
 Clone the repository to your local machine:
-> https://github.com/Anant1711/Task-1-Java-Rest-API.git
+> git clone https://github.com/Anant1711/Task-1-Java-Rest-API.git
 
 ## Usage
 Once the application is running, you can access the RESTful API endpoints using a tool like curl or Postman. Here are the available endpoints:
