@@ -1,4 +1,4 @@
-﻿# Task-1 Java REST API
+﻿# Java REST API
 This is a Spring Boot application that provides a RESTful API for performing operations on a MongoDB database.
 
 ## Prerequisites
